@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salla Town Hall | اجتماع سلة</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#2CF2C7;--dark:#004956;--light:#CFF7EE;--gray:#efefef;--yellow:#FFE895;--orange:#FFAF83;--blue:#92F0FF;--ink:#001f26;--muted:#4a7a82;--card:#fff;--bg:#f7fdfb;--border:#d8f0e8}
+html,body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Sora','IBM Plex Sans Arabic',sans-serif}
+.nav{background:var(--dark);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-logo{width:34px;height:34px;background:var(--teal);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand-logo svg{width:20px;height:20px}
+.brand-name{font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+.brand-sub{font-size:10px;color:rgba(255,255,255,.4)}
+.nav-tabs{display:flex;gap:3px}
+.tab{padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.5);font-family:inherit;transition:all .2s;white-space:nowrap}
+.tab.on{background:var(--teal);color:var(--dark)}
+.tab:hover:not(.on){background:rgba(255,255,255,.1);color:#fff}
+.scr{display:none;padding:24px 20px;flex-direction:column;gap:18px;max-width:700px;margin:0 auto;width:100%}
+.scr.on{display:flex}
+.hero{background:var(--dark);border-radius:18px;padding:26px 24px;color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;background:var(--teal);border-radius:50%;opacity:.07}
+.hero::after{content:'';position:absolute;bottom:-30px;left:-30px;width:130px;height:130px;background:var(--blue);border-radius:50%;opacity:.08}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--teal);margin-bottom:10px;text-transform:uppercase}
+.hero-title{font-size:22px;font-weight:700;line-height:1.45;margin-bottom:6px}
+.hero-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.75}
+.ask-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:22px}
+.ask-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+textarea.ti{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;resize:none;height:130px;outline:none;direction:rtl;color:var(--ink);background:#fafffe;line-height:1.85;transition:border .2s}
+textarea.ti:focus{border-color:var(--teal)}
+textarea.ti::placeholder{color:#b0d0c8;font-size:14px}
+.ask-foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.anon{font-size:11px;color:var(--muted)}
+.cn{font-size:11px;color:#bbb}
+.send-btn{width:100%;padding:14px;border:none;border-radius:11px;background:var(--teal);color:var(--dark);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.send-btn:hover{background:#18ddb4;transform:translateY(-1px)}
+.send-btn:disabled{background:var(--gray);color:#aaa;cursor:not-allowed;transform:none}
+.done{display:none;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:32px 10px}
+.done-ring{width:66px;height:66px;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:30px}
+.done-t{font-size:17px;font-weight:700;color:var(--dark)}
+.done-s{font-size:13px;color:var(--muted);line-height:1.8}
+.again{margin-top:6px;padding:9px 26px;border:1.5px solid var(--border);border-radius:9px;background:none;font-size:13px;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
+.again:hover{border-color:var(--teal);color:var(--dark)}
+.wall-top{background:var(--dark);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.wt-title{font-size:15px;font-weight:700;color:#fff}
+.wt-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+.live-pill{display:inline-flex;align-items:center;gap:5px;background:var(--teal);color:var(--dark);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--dark);animation:pu 1.4s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.15}}
+.refresh-bar{display:flex;align-items:center;justify-content:space-between}
+.refresh-info{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.prog{width:80px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--teal);border-radius:2px;transition:width 1s linear}
+.manual-refresh{padding:6px 14px;border-radius:7px;font-size:11px;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;transition:all .2s}
+.manual-refresh:hover{border-color:var(--teal);color:var(--dark)}
+.q-feed{display:flex;flex-direction:column;gap:10px}
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:16px 18px;animation:si .35s ease;transition:border-color .4s}
+.q-card:hover{border-color:var(--teal)}
+.q-card.new{border-color:var(--teal);background:#f5fffb}
+@keyframes si{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.q-text{font-size:15px;color:var(--ink);line-height:1.85;direction:rtl;text-align:right}
+.q-meta{display:flex;align-items:center;gap:8px;margin-top:9px;justify-content:flex-end}
+.q-time{font-size:11px;color:#bbb}
+.q-email{font-size:11px;color:var(--muted);background:var(--gray);padding:2px 9px;border-radius:10px}
+.empty-wall{text-align:center;padding:60px 20px;color:var(--muted)}
+.e-icon{font-size:40px;margin-bottom:14px;opacity:.3}
+.empty-wall p{font-size:13px;line-height:2.2}
+.loading{display:flex;align-items:center;justify-content:center;padding:50px;gap:10px;color:var(--muted);font-size:13px}
+.spin{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:500px){.nav{padding:0 14px}.tab{padding:6px 10px;font-size:11px}.hero-title{font-size:18px}.scr{padding:16px 14px}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="brand">
+    <div class="brand-logo">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 18L10 7L12 12L15 8L19 18" stroke="#004956" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">Salla Town Hall</div>
+      <div class="brand-sub">اجتماع سلة</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab on" onclick="go('ask',this)">✍️ Ask</button>
+    <button class="tab" onclick="go('live',this)">📋 Live Wall</button>
+  </div>
+</div>
+<div class="scr on" id="scr-ask">
+  <div class="hero">
+    <div class="hero-tag">Salla Town Hall · اجتماع سلة</div>
+    <div class="hero-title">Got a question?<br>عندك سؤال؟</div>
+    <div class="hero-sub">Ask anything — we'll answer live during the meeting<br>اسأل أي شيء وراح نجاوب في الاجتماع</div>
+  </div>
+  <div class="ask-card" id="ask-card">
+    <div class="ask-lbl">Your Question · سؤالك</div>
+    <textarea class="ti" id="ti" maxlength="300" placeholder="اكتب سؤالك هنا... / Type your question here..." oninput="uc()"></textarea>
+    <div class="ask-foot">
+      <div class="anon">🔒 Anonymous · مجهول الهوية</div>
+      <div class="cn"><span id="cc">0</span>/300</div>
+    </div>
+  </div>
+  <button class="send-btn" id="sbtn" disabled onclick="openForm()">Send Question · إرسال السؤال →</button>
+  <div class="done" id="done">
+    <div class="done-ring">🎉</div>
+    <div class="done-t">Question sent! · وصل سؤالك</div>
+    <div class="done-s">Your question is now on the live wall<br>سؤالك ظهر على الشاشة</div>
+    <button class="again" onclick="resetAsk()">Ask another · سؤال آخر</button>
+  </div>
+</div>
+<div class="scr" id="scr-live">
+  <div class="wall-top">
+    <div>
+      <div class="wt-title">Live Questions · الأسئلة المباشرة</div>
+      <div class="wt-sub" id="wt-sub">جاري التحميل...</div>
+    </div>
+    <div class="live-pill"><div class="ldot"></div> LIVE</div>
+  </div>
+  <div class="refresh-bar">
+    <div class="refresh-info">
+      <div class="prog"><div class="prog-fill" id="prog-fill" style="width:100%"></div></div>
+      تتحدث كل 10 ثوان
+    </div>
+    <button class="manual-refresh" onclick="fetchQ()">↻ تحديث الآن</button>
+  </div>
+  <div class="q-feed" id="q-feed">
+    <div class="loading"><div class="spin"></div> Loading...</div>
+  </div>
+</div>
+<script>
+const API='https://script.google.com/macros/s/AKfycbxeGwqQbK8qwoUvrk9Whd3FN3i09EWe9CaAGsybfqMyyTnrtLJ9_F-PNnyH_vxEOMt-/exec';
+const FORM='https://docs.google.com/forms/d/e/1FAIpQLSe95hGIS78lg-55M9PNlWhmC8hQFmDPqmkIkB7dcACEW6E3Xw/viewform?usp=sf_link';
+let lastCount=0,progVal=100,progTimer=null;
+function go(n,btn){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById('scr-'+n).classList.add('on');btn.classList.add('on');if(n==='live'){fetchQ();startProg();}else{clearInterval(progTimer);}}
+function uc(){const v=document.getElementById('ti').value;document.getElementById('cc').textContent=v.length;document.getElementById('sbtn').disabled=v.trim().length<3;}
+function openForm(){window.open(FORM,'_blank');document.getElementById('ask-card').style.display='none';document.getElementById('sbtn').style.display='none';document.getElementById('done').style.display='flex';}
+function resetAsk(){document.getElementById('ti').value='';document.getElementById('cc').textContent='0';document.getElementById('sbtn').disabled=true;document.getElementById('ask-card').style.display='block';document.getElementById('sbtn').style.display='block';document.getElementById('done').style.display='none';}
+async function fetchQ(){try{const r=await fetch(API+'?t='+Date.now());const data=await r.json();renderWall(data);}catch(e){document.getElementById('q-feed').innerHTML='<div class="empty-wall"><div class="e-icon">⚠️</div><p>Error · تعذر التحميل</p></div>';}resetProg();}
+function renderWall(data){const rows=data.filter(r=>Object.values(r).some(v=>v&&String(v).trim())).reverse();document.getElementById('wt-sub').textContent='Salla Town Hall — '+rows.length+' question'+(rows.length!==1?'s':'');if(!rows.length){document.getElementById('q-feed').innerHTML='<div class="empty-wall"><div class="e-icon">💬</div><p>Waiting for questions...<br>في انتظار الأسئلة</p></div>';lastCount=0;return;}const keys=Object.keys(rows[0]);const tsKey=keys.find(k=>k.toLowerCase().includes('timestamp'))||keys[0];const emailKey=keys.find(k=>k.toLowerCase().includes('email')||k.toLowerCase().includes('بريد'));const qKey=keys.find(k=>k!==tsKey&&k!==emailKey)||keys[keys.length-1];const isNew=rows.length>lastCount;document.getElementById('q-feed').innerHTML=rows.map((row,i)=>{const q=row[qKey]||'';if(!q.trim())return'';const ts=row[tsKey]||'';const email=emailKey?row[emailKey]:'';let timeStr='';if(ts){try{timeStr=new Date(ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});}catch(e){}}const hi=isNew&&i===0?' new':'';return`<div class="q-card${hi}"><div class="q-text">${esc(q)}</div><div class="q-meta">${email?`<span class="q-email">${esc(email)}</span>`:''} ${timeStr?`<span class="q-time">${timeStr}</span>`:''}</div></div>`;}).filter(Boolean).join('');if(isNew&&lastCount>0){const f=document.querySelector('.q-card.new');if(f)setTimeout(()=>f.classList.remove('new'),3000);}lastCount=rows.length;}
+function startProg(){clearInterval(progTimer);progTimer=setInterval(()=>{progVal-=10;document.getElementById('prog-fill').style.width=Math.max(0,progVal)+'%';if(progVal<=0)fetchQ();},1000);}
+function resetProg(){progVal=100;document.getElementById('prog-fill').style.width='100%';}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script>
+</body>
+</html>
